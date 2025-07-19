@@ -1,7 +1,7 @@
 import React from "react";
 import { useFieldArray } from "react-hook-form";
 import { Card } from "./ui/card";
-import { Button } from "./ui/button";
+import { Button as AntdButton } from "antd"; 
 import { defaultField } from "./helpers";
 import FieldItem from "./FieldItem";
 
@@ -33,9 +33,13 @@ const NestedFields = ({ nestName, control, watch }) => {
           )}
         </Card>
       ))}
-      <Button onClick={() => append(defaultField())} type="button" size="sm" style={{ marginTop: 6 }}>
+      <AntdButton
+        type="primary" 
+        onClick={() => append(defaultField())}
+        style={{ marginBottom: 6 }}
+      >
         + Add Item
-      </Button>
+      </AntdButton>
     </div>
   );
 };

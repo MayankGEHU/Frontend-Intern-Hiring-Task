@@ -1,8 +1,6 @@
 import React from "react";
 import { Controller } from "react-hook-form";
-import { Input } from "./ui/input";
-import { Select } from "./ui/select";
-import { Button } from "./ui/button";
+import { Input as AntdInput, Select as AntdSelect, Button as AntdButton } from "antd";
 import { FIELD_TYPE_OPTIONS } from "./constants";
 
 const FieldItem = ({ nestName, idx, control, remove, watch }) => {
@@ -16,7 +14,11 @@ const FieldItem = ({ nestName, idx, control, remove, watch }) => {
         control={control}
         defaultValue={field.key}
         render={({ field }) => (
-          <Input {...field} placeholder="Field Name" style={{ width: 120 }} />
+          <AntdInput
+            {...field}
+            placeholder="Field Name"
+            style={{ width: 120, borderRadius: 8 }}
+          />
         )}
       />
       <Controller
@@ -24,21 +26,24 @@ const FieldItem = ({ nestName, idx, control, remove, watch }) => {
         control={control}
         defaultValue={field.type}
         render={({ field: selectField }) => (
-          <Select
+          <AntdSelect
             {...selectField}
             options={FIELD_TYPE_OPTIONS}
             style={{ width: 120 }}
             placeholder="Field Type"
+            onChange={(value) => selectField.onChange(value)} 
           />
         )}
       />
-      <Button
-        variant="destructive"
+
+      <AntdButton
+        danger
+        type="primary"
         onClick={() => remove(idx)}
-        type="button"
+        style={{ marginTop: 10 }}
       >
         Delete
-      </Button>
+      </AntdButton>
     </div>
   );
 };

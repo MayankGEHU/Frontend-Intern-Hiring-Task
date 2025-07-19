@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import FieldList from "./FieldList";
-import { Button } from "./ui/button";
+import { Button } from "antd";
 import { renderJSON } from "./helpers";
 
 function SchemaBuilder() {
@@ -12,29 +12,71 @@ function SchemaBuilder() {
   const fields = watch("fields");
 
   return (
-    <div style={{ display: "flex", gap: 32, padding: 32 }}>
-      {/* Field editor section */}
-      <div style={{ flex: 1 }}>
-        <FieldList control={control} watch={watch} />
-        <Button
-          variant="default"
-          style={{ marginTop: 10 }}
-          type="button"
-          onClick={handleSubmit(data =>
-            alert(JSON.stringify(renderJSON(data.fields), null, 2))
-          )}
-        >
-          Submit
-        </Button>
-      </div>
+    <>
+      <style>{`
+        @media (max-width: 768px) {
+          .schema-container {
+            flex-direction: column;
+            padding: 16px !important;
+          }
+          .schema-section {
+            max-width: 100% !important;
+            width: 100% !important;
+          }
+        }
+      `}</style>
 
-      {/* JSON preview section */}
-      <div style={{ flex: 1 }}>
-        <pre style={{ background: "#f9f9f9", padding: 16, borderRadius: 6 }}>
-          {JSON.stringify(renderJSON(fields || []), null, 2)}
-        </pre>
+      <div
+        className="schema-container"
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 16,
+          padding: 32,
+        }}
+      >
+        {/* Field editor section */}
+        <div
+          className="schema-section"
+          style={{ flex: 1, minWidth: 300, maxWidth: 500 }}
+        >
+          <FieldList control={control} watch={watch} />
+          <Button
+            type="default"
+            ghost
+            style={{
+              marginTop: 10,
+              borderColor: "black",
+              color: "black",
+            }}
+            onClick={handleSubmit((data) =>
+              alert(JSON.stringify(renderJSON(data.fields), null, 2))
+            )}
+          >
+            Submit
+          </Button>
+        </div>
+
+        {/* JSON preview section */}
+        <div
+          className="schema-section"
+          style={{ flex: 1, minWidth: 200, maxWidth: 400 }}
+        >
+          <pre
+            style={{
+              background: "#f9f9f9",
+              padding: 16,
+              borderRadius: 6,
+              border: "1px solid gray",
+              whiteSpace: "pre-wrap",
+              wordBreak: "break-word",
+            }}
+          >
+            {JSON.stringify(renderJSON(fields || []), null, 2)}
+          </pre>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
