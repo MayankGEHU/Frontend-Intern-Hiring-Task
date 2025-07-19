@@ -90,7 +90,7 @@ src/
 ## 🙋‍♂️ About
 
 **Author:** [Mayank Singh]  
-**Email:** [minku6296@gmail.com]  
+**Email:** [minku6195@gmail.com]  
 
 For any questions about my approach or code, feel free to reach out or leave feedback!
 
